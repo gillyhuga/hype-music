@@ -5,7 +5,7 @@ button {
     border: none;
     border-radius: 5px;
   }
-
+  
   button:hover {
     background-color: #1DB954;
     color: white;
@@ -13,13 +13,13 @@ button {
     border: none;
     border-radius: 5px;
   }
-  
-img {
+    
+  img {
     border-radius: 10px;
     width: 300px;
-}
-
-.card {
+  }
+  
+  .card {
     display: grid;
     background: #1d1d1d;
     color:white;
@@ -28,7 +28,7 @@ img {
     margin: 20px auto;
     width: fit-content;
   }
-
+  
   .card-image {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
