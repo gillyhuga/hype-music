@@ -1,6 +1,6 @@
 import React from "react";
 
-const CardTrack = ({ title, artists, images, total_tracks }) => {
+const Cover = ({ title, artists, images, total_tracks }) => {
     return (
         <div className="px-10 pt-20 pb-5 text-white">
             <div className="flex flex-col lg:flex-row items-start lg:items-end lg:space-x-4 ">
@@ -21,4 +21,4 @@ const CardTrack = ({ title, artists, images, total_tracks }) => {
     )
 }
 
-export default CardTrack;
+export default Cover;
