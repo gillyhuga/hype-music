@@ -17,6 +17,18 @@ function SearchPage() {
     const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
     const [results, setResults] = useState([])
+    const [selectedTracks, setSelectedTracks] = useState([]);
+    console.log(selectedTracks)
+
+    const toggleSelect = (track) => {
+        const uri = track.uri;
+    
+        if (selectedTracks.includes(uri)) {
+            setSelectedTracks(selectedTracks.filter((item) => item !== uri));
+        } else {
+            setSelectedTracks([...selectedTracks, uri]);
+        }
+      }
 
 
     useEffect(() => {
@@ -37,6 +49,7 @@ function SearchPage() {
         window.localStorage.removeItem("token")
     }
 
+
     const searchTracks = async (e) => {
         e.preventDefault()
         const { data } = await axios.get(`${BASE_URL}/search`, {
@@ -48,11 +61,9 @@ function SearchPage() {
                 type: "track"
             }
         })
-
         setResults(data.tracks.items)
     }
-    console.log(results)
-
+    
     const renderTracks = () => {
         return results.map((track, index) => (
             <List
@@ -63,6 +74,7 @@ function SearchPage() {
                 album={track.album.name}
                 image={track.album.images[2].url}
                 duration={convertTime(track.duration_ms)}
+                buttonSelect={() => toggleSelect(track)}
             />
         ))
     }
