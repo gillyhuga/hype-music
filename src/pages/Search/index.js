@@ -18,18 +18,16 @@ function SearchPage() {
     const [searchKey, setSearchKey] = useState("")
     const [results, setResults] = useState([])
     const [selectedTracks, setSelectedTracks] = useState([]);
-    console.log(selectedTracks)
 
     const toggleSelect = (track) => {
         const uri = track.uri;
-    
+
         if (selectedTracks.includes(uri)) {
             setSelectedTracks(selectedTracks.filter((item) => item !== uri));
         } else {
             setSelectedTracks([...selectedTracks, uri]);
         }
-      }
-
+    }
 
     useEffect(() => {
         const hash = window.location.hash
@@ -63,7 +61,7 @@ function SearchPage() {
         })
         setResults(data.tracks.items)
     }
-    
+
     const renderTracks = () => {
         return results.map((track, index) => (
             <List
@@ -75,6 +73,7 @@ function SearchPage() {
                 image={track.album.images[2].url}
                 duration={convertTime(track.duration_ms)}
                 buttonSelect={() => toggleSelect(track)}
+                textSelect={selectedTracks.includes(track.uri)}
             />
         ))
     }
@@ -99,9 +98,9 @@ function SearchPage() {
                     <Track
                         items={renderTracks()}
                     />
-                    {/* {results.length === 0 && (
+                    {results.length === 0 && (
                         <h1 className="text-gray-300 text-center">No tracks</h1>
-                    )} */}
+                    )}
                 </div>
             </div>
         </div>
