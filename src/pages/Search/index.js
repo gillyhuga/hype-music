@@ -80,14 +80,15 @@ function SearchPage() {
 
     return (
         <div>
-            <div className=" bg-[#181818] min-h-screen px-10 pt-10">
+            <div className=" bg-[#181818] min-h-screen">
                 <Navbar
                     menu={!token ?
-                        <a className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>Login
-                            to Spotify</a>
-                        : <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" onClick={logout}>Logout</button>}
+                        <button>
+                            <a className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>Login</a>
+                        </button>
+                        : <button><a className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" onClick={logout}>Logout</a></button>}
                 />
-                <div className="py-10 px-14">
+                <div className="pt-24 px-14">
                     {token ?
                         <SearchBar
                             submit={searchTracks}
