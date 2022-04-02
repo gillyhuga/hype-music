@@ -1,13 +1,16 @@
 import React from "react";
+import { SearchIcon } from '@heroicons/react/solid'
 
 const SearchBar = ({ submit, change }) => {
     return (
-        <div>
-            <form className='pb-5 ' onSubmit={submit}>
-                <input className='rounded-l-full py-2 px-4' type="text" placeholder="Search for artist or songs" onChange={change} />
-                <button className='bg-green-500 py-2 px-4 rounded-r-full' type={"submit"}>Search</button>
-            </form>
-        </div>
+        <form onSubmit={submit}>
+            <div class="w-full h-10 pl-3 pr-2 w-72 bg-white border rounded-full flex justify-between items-center relative">
+                <button type={"submit"} class="ml-1 outline-none focus:outline-none active:outline-none">
+                    <SearchIcon className="h-5 w-5 text-black" />
+                </button>
+                <input type="text" placeholder="Search for artist or songs" class="appearance-none w-full outline-none focus:outline-none active:outline-none pl-2 " onChange={change} />
+            </div>
+        </form>
     )
 }
 
