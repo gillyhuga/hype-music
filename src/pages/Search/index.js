@@ -4,13 +4,14 @@ import List from "../../components/Track/List"
 import Navbar from "../../components/Navbar"
 import Track from "../../components/Track";
 import SearchBar from "../../components/SearchBar";
+import CreatePlaylist from "../../components/CreatePlaylist";
 import { convertTime } from "../../utils/convertTime";
+import { BASE_URL_API, GET_SEARCH, GET_USER_PROFILE } from "../../config/urlApi"
 
 function SearchPage() {
     const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID
     const REDIRECT_URI = "http://localhost:3000"
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-    const BASE_URL = "https://api.spotify.com/v1"
     const SCOPE = 'playlist-modify-private'
     const RESPONSE_TYPE = "token"
 
@@ -18,15 +19,17 @@ function SearchPage() {
     const [searchKey, setSearchKey] = useState("")
     const [results, setResults] = useState([])
     const [selectedTracks, setSelectedTracks] = useState([]);
+    const [user, setUser] = useState([]);
+    const [playlistForm, setPlaylistForm] = useState({
+        title: '',
+        description: '',
+    })
 
-    const toggleSelect = (track) => {
-        const uri = track.uri;
-
-        if (selectedTracks.includes(uri)) {
-            setSelectedTracks(selectedTracks.filter((item) => item !== uri));
-        } else {
-            setSelectedTracks([...selectedTracks, uri]);
-        }
+    const handleFormChange = (e) => {
+        setPlaylistForm({
+            ...playlistForm,
+            [e.target.name]: e.target.value
+        })
     }
 
     useEffect(() => {
@@ -40,17 +43,60 @@ function SearchPage() {
             window.localStorage.setItem("token", token)
         }
         setToken(token)
+
+        if (token !== null) {
+            setUserProfile(token)
+        }
     }, [])
 
-    const logout = () => {
-        setToken("")
-        window.localStorage.removeItem("token")
+    const setUserProfile = async (token) => {
+        const { data } = await axios.get(`${GET_USER_PROFILE}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
+        setUser(data)
     }
 
+    const createPlaylist = async (user_id) => {
+        try {
+            const response = await axios.post(`${BASE_URL_API}/users/${user_id}/playlists`, {
+                name: playlistForm.title,
+                public: false,
+                collaborative: false,
+                description: playlistForm.description,
+
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (response) {
+                return response?.data?.id
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const addSongsToPlaylist = async (playlist_id) => {
+        try {
+            const response = await axios.post(`${BASE_URL_API}/playlists/${playlist_id}/tracks`, {
+                uris: selectedTracks.map((song) => song)
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return response
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const searchTracks = async (e) => {
         e.preventDefault()
-        const { data } = await axios.get(`${BASE_URL}/search`, {
+        const { data } = await axios.get(`${GET_SEARCH}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -60,6 +106,43 @@ function SearchPage() {
             }
         })
         setResults(data.tracks.items)
+    }
+
+    const handleCreatePlaylist = async (e) => {
+        e.preventDefault();
+        try {
+            const id = user.id
+            const playlistId = await createPlaylist(id)
+            if (playlistId) {
+                const response = await addSongsToPlaylist(playlistId)
+                if (response) {
+                    setPlaylistForm({
+                        title: '',
+                        description: '',
+                    })
+                    setSelectedTracks([])
+                    setResults([])
+                    alert('Success')
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const toggleSelect = (track) => {
+        const uri = track.uri;
+
+        if (selectedTracks.includes(uri)) {
+            setSelectedTracks(selectedTracks.filter((item) => item !== uri));
+        } else {
+            setSelectedTracks([...selectedTracks, uri]);
+        }
+    }
+
+    const logout = () => {
+        setToken("")
+        window.localStorage.removeItem("token")
     }
 
     const renderTracks = () => {
@@ -83,18 +166,27 @@ function SearchPage() {
             <div className=" bg-[#181818] min-h-screen">
                 <Navbar
                     menu={!token ?
-                        <button>
-                            <a className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>Login</a>
+                        <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700">
+                            <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>Login</a>
                         </button>
-                        : <button><a className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" onClick={logout}>Logout</a></button>}
+                        : <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" onClick={logout}>Logout</button>}
                 />
                 <div className="pt-24 px-14">
+                    <h1 className="text-white py-6">Hi, Good morning {user.display_name}</h1>
                     {token ?
-                        <SearchBar
-                            submit={searchTracks}
-                            change={e => setSearchKey(e.target.value)}
-                        />
-                        : null
+                        <div className="flex space-x-4">
+                            <SearchBar
+                                submit={searchTracks}
+                                change={e => setSearchKey(e.target.value)}
+                            />
+                            {selectedTracks.length !== 0 && (
+                                <CreatePlaylist
+                                    title={handleFormChange}
+                                    description={handleFormChange}
+                                    submit={handleCreatePlaylist}
+                                     />
+                            )}
+                        </div> : null
                     }
                     <Track
                         items={renderTracks()}
