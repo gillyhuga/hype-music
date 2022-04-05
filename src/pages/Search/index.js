@@ -6,7 +6,11 @@ import Track from "../../components/Track";
 import SearchBar from "../../components/SearchBar";
 import CreatePlaylist from "../../components/CreatePlaylist";
 import { convertTime } from "../../utils/convertTime";
+import { setToken, removeToken } from "../../store/auth";
+import { useSelector, useDispatch } from "react-redux";
 import { BASE_URL_API, GET_SEARCH, GET_USER_PROFILE } from "../../config/urlApi"
+
+
 
 function SearchPage() {
     const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID
@@ -15,7 +19,6 @@ function SearchPage() {
     const SCOPE = 'playlist-modify-private'
     const RESPONSE_TYPE = "token"
 
-    const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
     const [results, setResults] = useState([])
     const [selectedTracks, setSelectedTracks] = useState([]);
@@ -32,6 +35,9 @@ function SearchPage() {
         })
     }
 
+    const dispatch = useDispatch();
+    let { token } = useSelector((state) => state.auth);
+
     useEffect(() => {
         const hash = window.location.hash
         let token = window.localStorage.getItem("token")
@@ -42,7 +48,7 @@ function SearchPage() {
             window.location.hash = ""
             window.localStorage.setItem("token", token)
         }
-        setToken(token)
+        dispatch(setToken(token));
 
         if (token !== null) {
             setUserProfile(token)
@@ -141,7 +147,7 @@ function SearchPage() {
     }
 
     const logout = () => {
-        setToken("")
+        dispatch(removeToken());
         window.localStorage.removeItem("token")
     }
 
