@@ -1,6 +1,6 @@
 import React from "react";
 
-const CreatePlaylist = ({ title, description, submit }) => {
+const AddPlaylist = ({ title, description, submit }) => {
     const [showModal, setShowModal] = React.useState(false);
     return (
         <>
@@ -59,4 +59,4 @@ const CreatePlaylist = ({ title, description, submit }) => {
     )
 }
 
-export default CreatePlaylist;
+export default AddPlaylist;
