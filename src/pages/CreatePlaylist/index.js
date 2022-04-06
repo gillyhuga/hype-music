@@ -155,7 +155,7 @@ function CreatePlaylist() {
 
     return (
         <div>
-            <div className=" bg-[#181818] min-h-screen">
+            <div>
 
                 <div className="pt-24 px-14">
                     <h1 className="text-white py-6">Hi, Good morning {user.display_name}</h1>

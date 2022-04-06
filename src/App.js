@@ -1,5 +1,6 @@
 import CreatePlaylist from "./pages/CreatePlaylist";
 import Album from "./pages/Album";
+import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar"
 import { useSelector, useDispatch } from "react-redux";
 import { removeToken } from "./store/auth";
@@ -22,7 +23,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className=" bg-[#181818] min-h-screen">
       <Navbar
         menu={!token ?
           <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700">
@@ -30,7 +31,7 @@ function App() {
           </button>
           : <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" onClick={logout}>Logout</button>}
       />
-      <CreatePlaylist />
+      <LandingPage />
     </div>
 
   );
