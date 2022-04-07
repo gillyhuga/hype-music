@@ -5,8 +5,7 @@ import Track from "../../components/Track";
 import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
 import { convertTime } from "../../utils/convertTime";
-import { setToken } from "../../store/auth";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, USERS, PLAYLISTS, TRACKS } from "../../config/urlApi"
 
 function CreatePlaylist() {
@@ -26,21 +25,9 @@ function CreatePlaylist() {
         })
     }
 
-    const dispatch = useDispatch();
     let { token } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        const hash = window.location.hash
-        let token = window.localStorage.getItem("token")
-
-        if (!token && hash) {
-            token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-
-            window.location.hash = ""
-            window.localStorage.setItem("token", token)
-        }
-        dispatch(setToken(token));
-
         if (token !== null) {
             setUserProfile(token)
         }
@@ -156,9 +143,9 @@ function CreatePlaylist() {
     return (
         <div>
             <div>
-
                 <div className="pt-24 px-14">
-                    <h1 className="text-white py-6">Hi, Good morning {user.display_name}</h1>
+                    <h1 className="text-white text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
+                    <p className="text-white mb-10">Choose your favorite song and create your playlist </p>
                     {token ?
                         <div className="flex space-x-4">
                             <SearchBar
