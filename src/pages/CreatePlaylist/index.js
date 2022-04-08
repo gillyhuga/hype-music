@@ -1,24 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import List from "../../components/Track/List"
-import Navbar from "../../components/Navbar"
 import Track from "../../components/Track";
 import SearchBar from "../../components/SearchBar";
-import CreatePlaylist from "../../components/CreatePlaylist";
+import AddPlaylist from "../../components/AddPlaylist";
 import { convertTime } from "../../utils/convertTime";
-import { setToken, removeToken } from "../../store/auth";
-import { useSelector, useDispatch } from "react-redux";
-import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE,USERS,PLAYLISTS,TRACKS } from "../../config/urlApi"
+import { useSelector } from "react-redux";
+import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, USERS, PLAYLISTS, TRACKS } from "../../config/urlApi"
 
-
-
-function SearchPage() {
-    const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID
-    const REDIRECT_URI = "http://localhost:3000"
-    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-    const SCOPE = 'playlist-modify-private'
-    const RESPONSE_TYPE = "token"
-
+function CreatePlaylist() {
     const [searchKey, setSearchKey] = useState("")
     const [results, setResults] = useState([])
     const [selectedTracks, setSelectedTracks] = useState([]);
@@ -35,28 +25,16 @@ function SearchPage() {
         })
     }
 
-    const dispatch = useDispatch();
     let { token } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        const hash = window.location.hash
-        let token = window.localStorage.getItem("token")
-
-        if (!token && hash) {
-            token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-
-            window.location.hash = ""
-            window.localStorage.setItem("token", token)
-        }
-        dispatch(setToken(token));
-
         if (token !== null) {
             setUserProfile(token)
         }
     }, [])
 
     const setUserProfile = async (token) => {
-        const { data } = await axios.get(`${CURRENT_USER_PROFILE}`, {
+        const { data } = await axios.get(CURRENT_USER_PROFILE, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -102,7 +80,7 @@ function SearchPage() {
 
     const searchTracks = async (e) => {
         e.preventDefault()
-        const { data } = await axios.get(`${SEARCH}`, {
+        const { data } = await axios.get(SEARCH, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -146,11 +124,6 @@ function SearchPage() {
         }
     }
 
-    const logout = () => {
-        dispatch(removeToken());
-        window.localStorage.removeItem("token")
-    }
-
     const renderTracks = () => {
         return results.map((track, index) => (
             <List
@@ -169,16 +142,10 @@ function SearchPage() {
 
     return (
         <div>
-            <div className=" bg-[#181818] min-h-screen">
-                <Navbar
-                    menu={!token ?
-                        <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700">
-                            <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>Login</a>
-                        </button>
-                        : <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" onClick={logout}>Logout</button>}
-                />
+            <div>
                 <div className="pt-24 px-14">
-                    <h1 className="text-white py-6">Hi, Good morning {user.display_name}</h1>
+                    <h1 className="text-white text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
+                    <p className="text-white mb-10">Choose your favorite song and create your playlist </p>
                     {token ?
                         <div className="flex space-x-4">
                             <SearchBar
@@ -186,11 +153,11 @@ function SearchPage() {
                                 change={e => setSearchKey(e.target.value)}
                             />
                             {selectedTracks.length !== 0 && (
-                                <CreatePlaylist
+                                <AddPlaylist
                                     title={handleFormChange}
                                     description={handleFormChange}
                                     submit={handleCreatePlaylist}
-                                     />
+                                />
                             )}
                         </div> : null
                     }
@@ -206,4 +173,4 @@ function SearchPage() {
     );
 }
 
-export default SearchPage;
+export default CreatePlaylist;
