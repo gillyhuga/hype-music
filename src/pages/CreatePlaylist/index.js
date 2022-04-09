@@ -6,6 +6,7 @@ import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
 import { convertTime } from "../../utils/convertTime";
 import { useSelector } from "react-redux";
+import toast, { Toaster } from 'react-hot-toast';
 import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, USERS, PLAYLISTS, TRACKS } from "../../config/urlApi"
 
 function CreatePlaylist() {
@@ -59,7 +60,7 @@ function CreatePlaylist() {
                 return response?.data?.id
             }
         } catch (error) {
-            console.log(error)
+            toast.error("Opss! " + error)
         }
     }
 
@@ -74,7 +75,7 @@ function CreatePlaylist() {
             })
             return response
         } catch (error) {
-            console.log(error)
+            toast.error("Opss! " + error)
         }
     }
 
@@ -106,11 +107,11 @@ function CreatePlaylist() {
                     })
                     setSelectedTracks([])
                     setResults([])
-                    alert('Success')
+                    toast.success('Playlist Created!')
                 }
             }
         } catch (error) {
-            console.log(error)
+            toast.error("Opss! " + error)
         }
     }
 
@@ -146,6 +147,10 @@ function CreatePlaylist() {
                 <div className="pt-24 px-14">
                     <h1 className="text-white text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
                     <p className="text-white mb-10">Choose your favorite song and create your playlist </p>
+                    <Toaster
+                        position="bottom-right"
+                        reverseOrder={false}
+                    />
                     {token ?
                         <div className="flex space-x-4">
                             <SearchBar
