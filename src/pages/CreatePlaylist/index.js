@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import List from "../../components/Track/List"
+import TrackItems from "../../components/Track/TrackItems"
 import Track from "../../components/Track";
 import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
@@ -29,10 +29,8 @@ function CreatePlaylist() {
     let { token } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        if (token !== null) {
-            setUserProfile(token)
-        }
-    }, [])
+        setUserProfile(token)
+    }, [token])
 
     const setUserProfile = async (token) => {
         const { data } = await axios.get(CURRENT_USER_PROFILE, {
@@ -127,7 +125,7 @@ function CreatePlaylist() {
 
     const renderTracks = () => {
         return results.map((track, index) => (
-            <List
+            <TrackItems
                 key={track.id}
                 index={index + 1}
                 title={track.name}
