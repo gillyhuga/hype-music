@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import List from "../../components/Track/List"
+import TrackItems from "../../components/Track/TrackItems"
 import Track from "../../components/Track";
 import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
 import { convertTime } from "../../utils/convertTime";
 import { useSelector } from "react-redux";
+import toast, { Toaster } from 'react-hot-toast';
 import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, USERS, PLAYLISTS, TRACKS } from "../../config/urlApi"
 
 function CreatePlaylist() {
@@ -28,10 +29,8 @@ function CreatePlaylist() {
     let { token } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        if (token !== null) {
-            setUserProfile(token)
-        }
-    }, [])
+        setUserProfile(token)
+    }, [token])
 
     const setUserProfile = async (token) => {
         const { data } = await axios.get(CURRENT_USER_PROFILE, {
@@ -59,7 +58,7 @@ function CreatePlaylist() {
                 return response?.data?.id
             }
         } catch (error) {
-            console.log(error)
+            toast.error("Opss! " + error)
         }
     }
 
@@ -74,7 +73,7 @@ function CreatePlaylist() {
             })
             return response
         } catch (error) {
-            console.log(error)
+            toast.error("Opss! " + error)
         }
     }
 
@@ -106,11 +105,11 @@ function CreatePlaylist() {
                     })
                     setSelectedTracks([])
                     setResults([])
-                    alert('Success')
+                    toast.success('Playlist Created!')
                 }
             }
         } catch (error) {
-            console.log(error)
+            toast.error("Opss! " + error)
         }
     }
 
@@ -126,7 +125,7 @@ function CreatePlaylist() {
 
     const renderTracks = () => {
         return results.map((track, index) => (
-            <List
+            <TrackItems
                 key={track.id}
                 index={index + 1}
                 title={track.name}
@@ -146,6 +145,10 @@ function CreatePlaylist() {
                 <div className="pt-24 px-14">
                     <h1 className="text-white text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
                     <p className="text-white mb-10">Choose your favorite song and create your playlist </p>
+                    <Toaster
+                        position="bottom-right"
+                        reverseOrder={false}
+                    />
                     {token ?
                         <div className="flex space-x-4">
                             <SearchBar
