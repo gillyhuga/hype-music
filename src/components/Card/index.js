@@ -1,4 +1,5 @@
 import React from "react";
+import CheckCircleIcon from "@heroicons/react/outline/CheckCircleIcon";
 
 
 const Card = ({ title, artists, image, textSelect, buttonSelect }) => {
@@ -17,7 +18,6 @@ const Card = ({ title, artists, image, textSelect, buttonSelect }) => {
                     <button className="bg-green-500 text-white border  rounded-full py-2 px-8 " onClick={setSelect}>Select</button>}
             </div>
         </div>
-
     )
 }
 

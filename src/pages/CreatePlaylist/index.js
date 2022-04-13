@@ -185,20 +185,20 @@ function CreatePlaylist() {
                     {!inSearch ?
                         <>
                             <h1 className="text-white text-2xl font-medium pt-6 mb-2">Your top song</h1>
-                            <div className="grid-parent py-5  ">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-5  ">
                                 {playlist.length ?
                                     playlist.slice(0, 12).map((track, index) =>
-                                        <div className="grid-child">
-                                            <Card
-                                                key={track.id}
-                                                index={index + 1}
-                                                title={track.name}
-                                                artists={track.artists[0].name}
-                                                image={track.album.images[0].url}
-                                                buttonSelect={() => toggleSelect(track)}
-                                                textSelect={selectedTracks.includes(track.uri)}
-                                            />
-                                        </div>
+
+                                        <Card
+                                            key={track.id}
+                                            index={index + 1}
+                                            title={track.name}
+                                            artists={track.artists[0].name}
+                                            image={track.album.images[0].url}
+                                            buttonSelect={() => toggleSelect(track)}
+                                            textSelect={selectedTracks.includes(track.uri)}
+                                        />
+
                                     )
                                     :
                                     null
