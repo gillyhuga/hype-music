@@ -5,15 +5,22 @@ import Track from "../../components/Track";
 import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
 import { convertTime } from "../../utils/convertTime";
-import { useSelector } from "react-redux";
 import toast, { Toaster } from 'react-hot-toast';
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../store/user";
+import Card from "../../components/Card";
+import "./index.css";
+
 import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, USERS, PLAYLISTS, TRACKS } from "../../config/urlApi"
 
 function CreatePlaylist() {
+    const dispatch = useDispatch();
+    let { user } = useSelector((state) => state.user);
+    const [playlist, setPlaylist] = useState([]);
     const [searchKey, setSearchKey] = useState("")
     const [results, setResults] = useState([])
     const [selectedTracks, setSelectedTracks] = useState([]);
-    const [user, setUser] = useState([]);
+    const [inSearch, setinSearch] = useState(false);
     const [playlistForm, setPlaylistForm] = useState({
         title: '',
         description: '',
@@ -30,7 +37,8 @@ function CreatePlaylist() {
 
     useEffect(() => {
         setUserProfile(token)
-    }, [token])
+        getTopTrack(token)
+    }, [])
 
     const setUserProfile = async (token) => {
         const { data } = await axios.get(CURRENT_USER_PROFILE, {
@@ -38,7 +46,8 @@ function CreatePlaylist() {
                 Authorization: `Bearer ${token}`
             },
         })
-        setUser(data)
+        // setUser(data)
+        dispatch(setUser(data));
     }
 
     const createPlaylist = async (user_id) => {
@@ -89,6 +98,7 @@ function CreatePlaylist() {
             }
         })
         setResults(data.tracks.items)
+        setinSearch(true)
     }
 
     const handleCreatePlaylist = async (e) => {
@@ -139,6 +149,16 @@ function CreatePlaylist() {
         ))
     }
 
+
+    const getTopTrack = async (token) => {
+        const { data } = await axios.get(CURRENT_USER_PROFILE + `/top/tracks`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
+        setPlaylist(data.items)
+    }
+
     return (
         <div>
             <div>
@@ -149,27 +169,51 @@ function CreatePlaylist() {
                         position="bottom-right"
                         reverseOrder={false}
                     />
-                    {token ?
-                        <div className="flex space-x-4">
-                            <SearchBar
-                                submit={searchTracks}
-                                change={e => setSearchKey(e.target.value)}
+                    <div className="flex space-x-4">
+                        <SearchBar
+                            submit={searchTracks}
+                            change={e => setSearchKey(e.target.value)}
+                        />
+                        {selectedTracks.length !== 0 && (
+                            <AddPlaylist
+                                title={handleFormChange}
+                                description={handleFormChange}
+                                submit={handleCreatePlaylist}
                             />
-                            {selectedTracks.length !== 0 && (
-                                <AddPlaylist
-                                    title={handleFormChange}
-                                    description={handleFormChange}
-                                    submit={handleCreatePlaylist}
-                                />
-                            )}
-                        </div> : null
-                    }
-                    <Track
-                        items={renderTracks()}
-                    />
-                    {results.length === 0 && (
-                        <h1 className="text-gray-300 text-center">No tracks</h1>
-                    )}
+                        )}
+                    </div>
+                    {!inSearch ?
+                        <>
+                            <h1 className="text-white text-2xl font-medium pt-6 mb-2">Your top song</h1>
+                            <div className="grid-parent py-5  ">
+                                {playlist.length ?
+                                    playlist.slice(0, 12).map((track, index) =>
+                                        <div className="grid-child">
+                                            <Card
+                                                key={track.id}
+                                                index={index + 1}
+                                                title={track.name}
+                                                artists={track.artists[0].name}
+                                                image={track.album.images[0].url}
+                                                buttonSelect={() => toggleSelect(track)}
+                                                textSelect={selectedTracks.includes(track.uri)}
+                                            />
+                                        </div>
+                                    )
+                                    :
+                                    null
+                                }
+                            </div>
+                        </>
+                        : null}
+                    {inSearch ?
+                        <>
+                            <Track
+                                items={renderTracks()}
+                            />
+                        </>
+                        : null}
+
                 </div>
             </div>
         </div>

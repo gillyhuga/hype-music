@@ -1,0 +1,12 @@
+ .grid-parent {
+    display: grid;
+    height: fit-content;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+  }
+
+  .grid-child {
+    display: grid;
+    place-items: center;
+  }
+  

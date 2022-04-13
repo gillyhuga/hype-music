@@ -7,6 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setToken, removeToken } from "./store/auth";
 import { LOGIN_URL } from "./config/urlApi"
 import './App.css';
+import ProtectedRoute from "./components/ProtectedRoute";
+
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -21,20 +25,21 @@ function App() {
 
       window.location.hash = ""
       window.localStorage.setItem("token", token)
+      localStorage.setItem("isAuthenticated", "true");
     }
     dispatch(setToken(token));
   })
 
   const logout = () => {
     dispatch(removeToken());
-    window.localStorage.removeItem("token")
+    localStorage.clear()
   }
 
   return (
     <Router>
       <div className=" bg-[#181818] min-h-screen">
         <Navbar
-          menu={!token ?
+          button={!token ?
             <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700">
               <a href={LOGIN_URL}>Login to Spotify</a>
             </button>
@@ -48,13 +53,8 @@ function App() {
               <LandingPage />
             )}
           </Route>
-          <Route path="/create-playlist">
-            {!token ? (
-              <Redirect exact from='/create-playlist' to='/' />
-            ) : (
-              <CreatePlaylist />
-            )}
-          </Route>
+          <ProtectedRoute exact path="/" component={CreatePlaylist} />
+          <ProtectedRoute exact path="/create-playlist" component={CreatePlaylist} />
         </Switch>
       </div>
     </Router>
