@@ -8,14 +8,23 @@ const Card = ({ title, artists, image, textSelect, buttonSelect }) => {
     }
     return (
         <div>
-            <div className=" grid bg-white rounded-xl  mx-auto w-[200px] text-white">
-                <div className="rounded-b-xl"><img className="rounded-xl max-w-[200px] " src={image} alt="album" /></div>
-                <div className="m-[10px] truncate ">
-                    <h2 className="text-black font-bold text-lg">{title}</h2>
-                    <p className="text-[#ADADAD] mb-10">{artists}</p>
+            <div class="card lg:card-side bg-base-100 shadow-xl">
+                <figure><img className="md:w-[200px]" src={image} alt="Album" /></figure>
+                <div class="w-2/3 card-body">
+                    <div class=" m-2 mb-7 truncate">
+                        <span className="text-xl font-bold">{title}</span>
+                        <p>{artists}</p>
+                    </div>
+                    <div class="card-actions justify-end">
+                        {textSelect ?
+                            <button class="btn gap-2" onClick={setSelect}>
+                                <CheckCircleIcon className="h-6 w-6" />
+                                Selected
+                            </button>
+                            :
+                            <button class="btn btn-primary" onClick={setSelect}>Select</button>}
+                    </div>
                 </div>
-                {textSelect ? <button className="bg-white text-black  border border-white rounded-full py-2 px-8 hover:bg-gray-200 " onClick={setSelect}>Selected</button> :
-                    <button className="bg-green-500 text-white border  rounded-full py-2 px-8 " onClick={setSelect}>Select</button>}
             </div>
         </div>
     )
