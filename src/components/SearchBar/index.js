@@ -4,11 +4,13 @@ import { SearchIcon } from '@heroicons/react/solid'
 const SearchBar = ({ submit, change }) => {
     return (
         <form onSubmit={submit}>
-            <div className="w-full h-10 pl-3 pr-2 w-72 bg-white border rounded-full flex justify-between items-center">
-                <button className="ml-1 outline-none focus:outline-none active:outline-none">
-                    <SearchIcon className="h-5 w-5 text-black" />
-                </button>
-                <input type="text" placeholder="Search for artist or songs" className="appearance-none w-full outline-none focus:outline-none active:outline-none pl-2 " onChange={change} />
+            <div className="form-control">
+                <div className="input-group">
+                    <input type="text" required={true} placeholder="Search for artist or songs" className="input input-bordered" onChange={change} />
+                    <button className="btn btn-primary btn-square">
+                        <SearchIcon className="h-6 w-6 text-white" />
+                    </button>
+                </div>
             </div>
         </form>
     )

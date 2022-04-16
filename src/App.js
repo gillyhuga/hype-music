@@ -39,11 +39,8 @@ function App() {
     <Router>
       <div className=" bg-[#181818] min-h-screen">
         <Navbar
-          button={!token ?
-            <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700">
-              <a href={LOGIN_URL}>Login to Spotify</a>
-            </button>
-            : <button className="text-white border border-white rounded-full py-2 px-6 hover:bg-gray-700" onClick={logout}>Logout</button>}
+          login={LOGIN_URL}
+          logout={logout}
         />
         <Switch>
           <Route exact path="/">

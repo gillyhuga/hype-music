@@ -99,7 +99,7 @@ function CreatePlaylist() {
     return (
         <div>
             <div>
-                <div className="pt-24 px-14">
+                <div className="px-6">
                     <h1 className="text-white text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
                     <p className="text-white mb-10">Choose your favorite song and create your playlist </p>
                     <Toaster
@@ -122,7 +122,7 @@ function CreatePlaylist() {
                     {!inSearch ?
                         <>
                             <h1 className="text-white text-2xl font-medium pt-6 mb-2">Your top song</h1>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-5  ">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5  ">
                                 {playlist.length ?
                                     playlist.slice(0, 12).map((track, index) =>
                                         <Card
