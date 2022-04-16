@@ -1,30 +1,38 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import TrackItems from "../../components/Track/TrackItems"
 import Track from "../../components/Track";
 import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
 import { convertTime } from "../../utils/convertTime";
 import toast, { Toaster } from 'react-hot-toast';
+import { getSearchTrack, getUserProfile, createPlaylist, addTracksToPlaylist, getTopTrack } from "../../lib/spotify";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../store/user";
 import Card from "../../components/Card";
 import "./index.css";
 
-import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, USERS, PLAYLISTS, TRACKS } from "../../config/urlApi"
-
 function CreatePlaylist() {
     const dispatch = useDispatch();
-    let { user } = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state.user);
+    let { token } = useSelector((state) => state.auth);
     const [playlist, setPlaylist] = useState([]);
     const [searchKey, setSearchKey] = useState("")
-    const [results, setResults] = useState([])
+    const [tracks, setTracks] = useState([])
     const [selectedTracks, setSelectedTracks] = useState([]);
     const [inSearch, setinSearch] = useState(false);
     const [playlistForm, setPlaylistForm] = useState({
         title: '',
         description: '',
     })
+
+    useEffect(() => {
+        getUserProfile(token).then((data) => {
+            dispatch(setUser(data))
+        })
+        getTopTrack(token).then((data) => {
+            setPlaylist(data)
+        })
+    }, [dispatch, token])
 
     const handleFormChange = (e) => {
         setPlaylistForm({
@@ -33,88 +41,28 @@ function CreatePlaylist() {
         })
     }
 
-    let { token } = useSelector((state) => state.auth);
-
-    useEffect(() => {
-        setUserProfile(token)
-        getTopTrack(token)
-    }, [])
-
-    const setUserProfile = async (token) => {
-        const { data } = await axios.get(CURRENT_USER_PROFILE, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        getSearchTrack(searchKey, token).then((data) => {
+            setTracks(data.tracks.items)
         })
-        // setUser(data)
-        dispatch(setUser(data));
-    }
-
-    const createPlaylist = async (user_id) => {
-        try {
-            const response = await axios.post(BASE_URL_API + USERS + `/${user_id}` + PLAYLISTS, {
-                name: playlistForm.title,
-                public: false,
-                collaborative: false,
-                description: playlistForm.description,
-
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            if (response) {
-                return response?.data?.id
-            }
-        } catch (error) {
-            toast.error("Opss! " + error)
-        }
-    }
-
-    const addSongsToPlaylist = async (playlist_id) => {
-        try {
-            const response = await axios.post(BASE_URL_API + PLAYLISTS + `/${playlist_id}` + TRACKS, {
-                uris: selectedTracks.map((song) => song)
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            return response
-        } catch (error) {
-            toast.error("Opss! " + error)
-        }
-    }
-
-    const searchTracks = async (e) => {
-        e.preventDefault()
-        const { data } = await axios.get(SEARCH, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            params: {
-                q: searchKey,
-                type: "track"
-            }
-        })
-        setResults(data.tracks.items)
         setinSearch(true)
     }
 
     const handleCreatePlaylist = async (e) => {
         e.preventDefault();
         try {
-            const id = user.id
-            const playlistId = await createPlaylist(id)
+            const userId = user.id
+            const playlistId = await createPlaylist(userId, token, playlistForm.title, playlistForm.description)
             if (playlistId) {
-                const response = await addSongsToPlaylist(playlistId)
+                const response = await addTracksToPlaylist(playlistId, token, selectedTracks)
                 if (response) {
                     setPlaylistForm({
                         title: '',
                         description: '',
                     })
                     setSelectedTracks([])
-                    setResults([])
+                    setTracks([])
                     toast.success('Playlist Created!')
                 }
             }
@@ -125,7 +73,6 @@ function CreatePlaylist() {
 
     const toggleSelect = (track) => {
         const uri = track.uri;
-
         if (selectedTracks.includes(uri)) {
             setSelectedTracks(selectedTracks.filter((item) => item !== uri));
         } else {
@@ -134,7 +81,7 @@ function CreatePlaylist() {
     }
 
     const renderTracks = () => {
-        return results.map((track, index) => (
+        return tracks.map((track, index) => (
             <TrackItems
                 key={track.id}
                 index={index + 1}
@@ -149,16 +96,6 @@ function CreatePlaylist() {
         ))
     }
 
-
-    const getTopTrack = async (token) => {
-        const { data } = await axios.get(CURRENT_USER_PROFILE + `/top/tracks`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        })
-        setPlaylist(data.items)
-    }
-
     return (
         <div>
             <div>
@@ -171,7 +108,7 @@ function CreatePlaylist() {
                     />
                     <div className="flex space-x-4">
                         <SearchBar
-                            submit={searchTracks}
+                            submit={handleSearch}
                             change={e => setSearchKey(e.target.value)}
                         />
                         {selectedTracks.length !== 0 && (
@@ -188,7 +125,6 @@ function CreatePlaylist() {
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-5  ">
                                 {playlist.length ?
                                     playlist.slice(0, 12).map((track, index) =>
-
                                         <Card
                                             key={track.id}
                                             index={index + 1}
@@ -201,8 +137,7 @@ function CreatePlaylist() {
 
                                     )
                                     :
-                                    null
-                                }
+                                    null}
                             </div>
                         </>
                         : null}
@@ -213,7 +148,6 @@ function CreatePlaylist() {
                             />
                         </>
                         : null}
-
                 </div>
             </div>
         </div>
