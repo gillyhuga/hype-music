@@ -1,16 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface InitialState {
+    token: string;
+    isAuthorized: boolean;
+  }
+
+  const initialState: InitialState = {
+    token: '',
+    isAuthorized: false,
+  };
+  
+
 export const authentication = createSlice({
     name: "auth",
-    initialState: {
-        token: "",
-    },
+    initialState,
     reducers: {
         setToken: (state, action) => {
             state.token = action.payload;
+            state.isAuthorized = true;
         },
         removeToken: (state) => {
             state.token = "";
+            state.isAuthorized = false;
         },
     },
 });

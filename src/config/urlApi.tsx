@@ -13,3 +13,4 @@ export const TRACKS = "/tracks";
 
 export const SEARCH = BASE_URL_API + "/search";
 export const CURRENT_USER_PROFILE = BASE_URL_API + "/me";
+export const TOP_TRACKS = CURRENT_USER_PROFILE + "/top" + TRACKS;
