@@ -1,7 +1,7 @@
 import axios from "axios";
-import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE,TOP_TRACKS, USERS, PLAYLISTS, TRACKS } from "../config/urlApi"
+import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, TOP_TRACKS, USERS, PLAYLISTS, TRACKS } from "../config/urlApi"
 
-export const getSearchTrack = async (searchKey, token) => {
+export const getSearchTrack = async (searchKey: string, token: string) => {
     const response = await axios.get(SEARCH, {
         headers: {
             Authorization: `Bearer ${token}`
@@ -14,7 +14,7 @@ export const getSearchTrack = async (searchKey, token) => {
     return response.data;
 }
 
-export const getUserProfile = async (token) => {
+export const getUserProfile = async (token: string) => {
     const response = await axios.get(CURRENT_USER_PROFILE, {
         headers: {
             Authorization: `Bearer ${token}`
@@ -23,7 +23,7 @@ export const getUserProfile = async (token) => {
     return response.data;
 }
 
-export const createPlaylist = async (userId, token, playlistTitle, playlistDescription) => {
+export const createPlaylist = async (userId: any, token: string, playlistTitle: string, playlistDescription: string) => {
     const response = await axios.post(BASE_URL_API + USERS + `/${userId}` + PLAYLISTS, {
         name: playlistTitle,
         description: playlistDescription,
@@ -37,7 +37,7 @@ export const createPlaylist = async (userId, token, playlistTitle, playlistDescr
     return response?.data?.id
 }
 
-export const addTracksToPlaylist = async (playlistId, token, selectedTracks) => {
+export const addTracksToPlaylist = async (playlistId: any, token: string, selectedTracks: any[]) => {
     const response = await axios.post(BASE_URL_API + PLAYLISTS + `/${playlistId}` + TRACKS, {
         uris: selectedTracks.map((song) => song)
     }, {
@@ -48,7 +48,7 @@ export const addTracksToPlaylist = async (playlistId, token, selectedTracks) => 
     return response
 }
 
-export const getTopTrack = async (token) => {
+export const getTopTrack = async (token: string) => {
     const response = await axios.get(TOP_TRACKS, {
         headers: {
             Authorization: `Bearer ${token}`

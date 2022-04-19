@@ -1,11 +1,18 @@
-import React from "react";
 import CheckCircleIcon from "@heroicons/react/outline/CheckCircleIcon";
 
+type Props = {
+    title: string,
+    artists: string;
+    image: string;
+    select: boolean;
+    buttonSelect: () => void;
+}
 
-const Card = ({ title, artists, image, textSelect, buttonSelect }) => {
-    const setSelect = () => {
+const Card = ({ title, artists, image, buttonSelect, select }: Props) => {
+    const handleSelect = () => {
         buttonSelect();
-    }
+    };
+
     return (
         <div>
             <div className="card card-side bg-base-100 shadow-xl">
@@ -16,13 +23,13 @@ const Card = ({ title, artists, image, textSelect, buttonSelect }) => {
                         <p>{artists}</p>
                     </div>
                     <div className="card-actions justify-end">
-                        {textSelect ?
-                            <button className="btn gap-2" onClick={setSelect}>
+                        {select ?
+                            <button className="btn gap-2" onClick={handleSelect}>
                                 <CheckCircleIcon className="h-6 w-6" />
                                 Selected
                             </button>
                             :
-                            <button className="btn btn-primary" onClick={setSelect}>Select</button>}
+                            <button className="btn btn-primary" onClick={handleSelect}>Select</button>}
                     </div>
                 </div>
             </div>

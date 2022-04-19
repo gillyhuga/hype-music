@@ -1,10 +1,16 @@
 import React from "react";
 
-const AddPlaylist = ({ title, description, submit }) => {
+type Props = {
+    submit: ((e: React.FormEvent<HTMLFormElement>) => void),
+    title: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    description: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const AddPlaylist = ({ title, description, submit }: Props) => {
     return (
         <div>
-            <label for="my-modal" class="btn btn-primary modal-button">Create Playlist</label>
-            <input type="checkbox" id="my-modal" class="modal-toggle" />
+            <label htmlFor="my-modal" className="btn btn-primary modal-button">Create Playlist</label>
+            <input type="checkbox" id="my-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box">
                     <form onSubmit={submit}>
@@ -18,13 +24,13 @@ const AddPlaylist = ({ title, description, submit }) => {
                         </label>
                         <input type="text" name="description" onChange={description} placeholder="Description" className="input input-bordered w-full "></input>
                         <div className="modal-action">
-                            <label for="my-modal" className="btn">Close</label>
+                            <label htmlFor="my-modal" className="btn">Close</label>
                             <button type="submit" className="btn btn-primary">Create</button>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
