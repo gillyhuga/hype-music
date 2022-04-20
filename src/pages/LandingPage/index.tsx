@@ -33,7 +33,7 @@ function LandingPage() {
 
     return (
         <div>
-            <div className="hero min-h-screen bg-base-200">
+            <div className="hero min-h-screen">
                 <Toaster
                     position="bottom-center"
                     reverseOrder={false}

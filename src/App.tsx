@@ -20,7 +20,7 @@ function App() {
 
   return (
     <Router>
-      <div className=" bg-[#181818] min-h-screen">
+      <div className="bg-base-200 min-h-screen">
         <Navbar
           login={LOGIN_URL}
           logout={logout}

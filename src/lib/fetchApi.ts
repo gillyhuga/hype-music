@@ -8,7 +8,8 @@ export const getSearchTrack = async (searchKey: string, token: string) => {
         },
         params: {
             q: searchKey,
-            type: "track"
+            type: "track",
+            limit: 18,
         }
     })
     return response.data;
@@ -53,6 +54,9 @@ export const getTopTrack = async (token: string) => {
         headers: {
             Authorization: `Bearer ${token}`
         },
+        params: {
+            limit: 18,
+        }
     })
     return response?.data?.items
 }

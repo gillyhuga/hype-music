@@ -16,15 +16,15 @@ const Track = ({ title, artists, image, buttonSelect, select }: Props) => {
     return (
         <div>
             <div className="card lg:card-side card-compact bg-base-100 shadow-xl">
-                    <img className="h-48 w-full object-cover md:h-full md:w-48" src={image} alt="Album" />
+                    <img className="h-48 w-full object-cover sm:h-full xl:w-48" src={image} alt="Album" />
                 <div className="card-body truncate">
-                    <div className="m-2 mb-7 truncate">
+                    <div className="m-2 lg:mb-10 truncate">
                         <span className="text-xl font-bold">{title}</span>
                         <p>{artists}</p>
                     </div>
                     <div className="card-actions justify-end">
                         {select ?
-                            <button className="btn gap-2" onClick={handleSelect}>
+                            <button className="btn gap-2 btn-secondary" onClick={handleSelect}>
                                 <CheckCircleIcon className="h-6 w-6" />
                                 Selected
                             </button>

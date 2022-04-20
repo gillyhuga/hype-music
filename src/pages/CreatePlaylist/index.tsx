@@ -77,8 +77,8 @@ function CreatePlaylist() {
         <div>
             <div>
                 <div className="px-6">
-                    <h1 className="text-white text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
-                    <p className="text-white mb-10">Choose your favorite song and create your playlist </p>
+                    <h1 className="text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
+                    <p className="mb-10">Choose your favorite song and create your playlist </p>
                     <Toaster
                         position="bottom-center"
                         reverseOrder={false}
@@ -97,9 +97,9 @@ function CreatePlaylist() {
                         )}
                     </div>
                     {!inSearch ?
-                        <h1 className="text-white text-2xl font-medium pt-6 mb-2">Your top songs</h1>
-                        : <h1 className="text-white text-2xl font-medium pt-6 mb-2">Result for "{querySearch}"</h1>}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5">
+                        <h1 className="text-2xl font-medium pt-6 mb-2">Top songs for you</h1>
+                        : <h1 className=" text-2xl font-medium pt-6 mb-2">Result for "{querySearch}"</h1>}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 py-5">
                         {tracks.length ?
                             tracks.map((track: any) =>
                                 <Track
@@ -112,7 +112,7 @@ function CreatePlaylist() {
                                 />
                             )
                             :
-                            <h1 className="text-white text-2xl font-medium pt-6 mb-2">Tracks not found  </h1>}
+                            <h1 className=" text-2xl font-medium pt-6 mb-2">Tracks not found</h1>}
                     </div>
 
                 </div>
