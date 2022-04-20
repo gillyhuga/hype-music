@@ -35,7 +35,7 @@ function LandingPage() {
         <div>
             <div className="hero min-h-screen bg-base-200">
                 <Toaster
-                    position="bottom-right"
+                    position="bottom-center"
                     reverseOrder={false}
                 />
                 <div className="hero-content text-center">

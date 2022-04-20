@@ -57,7 +57,6 @@ function CreatePlaylist() {
                         description: '',
                     })
                     setSelectedTracks([])
-                    setTracks([])
                     toast.success('Playlist Created!')
                 }
             }
@@ -82,7 +81,7 @@ function CreatePlaylist() {
                     <h1 className="text-white text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
                     <p className="text-white mb-10">Choose your favorite song and create your playlist </p>
                     <Toaster
-                        position="bottom-right"
+                        position="bottom-center"
                         reverseOrder={false}
                     />
                     <div className="flex space-x-4">
