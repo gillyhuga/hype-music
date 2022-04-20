@@ -11,7 +11,6 @@ function CreatePlaylist() {
     const dispatch = useDispatch();
     const { user } = useSelector((state: RootState) => state.user);
     let { token } = useSelector((state: RootState) => state.auth);
-    const [topTracks, setTopTracks] = useState([])
     const [searchKey, setSearchKey] = useState("")
     const [querySearch, setQuerySearch] = useState("")
     const [tracks, setTracks] = useState([])
@@ -24,7 +23,7 @@ function CreatePlaylist() {
 
     useEffect(() => {
         getTopTrack(token).then((data) => {
-            setTopTracks(data)
+            setTracks(data)
         })
     }, [dispatch, token])
 
@@ -101,39 +100,19 @@ function CreatePlaylist() {
                         <h1 className="text-white text-2xl font-medium pt-6 mb-2">Your top songs</h1>
                         : <h1 className="text-white text-2xl font-medium pt-6 mb-2">Result for "{querySearch}"</h1>}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-5">
-                        {!inSearch ?
-                            <>
-                                {topTracks.length ?
-                                    topTracks.map((track: any) =>
-                                        <Track
-                                            key={track.id}
-                                            title={track.name}
-                                            artists={track.artists[0].name}
-                                            image={track.album.images[0].url}
-                                            buttonSelect={() => toggleSelect(track)}
-                                            select={selectedTracks.includes(track.uri)}
-                                        />
-                                    )
-                                    :
-                                    null}
-                            </>
+                        {tracks.length ?
+                            tracks.map((track: any) =>
+                                <Track
+                                    key={track.id}
+                                    title={track.name}
+                                    artists={track.artists[0].name}
+                                    image={track.album.images[0].url}
+                                    buttonSelect={() => toggleSelect(track)}
+                                    select={selectedTracks.includes(track.uri)}
+                                />
+                            )
                             :
-                            <>
-                                {tracks.length ?
-                                    tracks.map((track: any) =>
-                                        <Track
-                                            key={track.id}
-                                            title={track.name}
-                                            artists={track.artists[0].name}
-                                            image={track.album.images[0].url}
-                                            buttonSelect={() => toggleSelect(track)}
-                                            select={selectedTracks.includes(track.uri)}
-                                        />
-                                    )
-                                    :
-                                    null}
-                            </>
-                        }
+                            <h1 className="text-white text-2xl font-medium pt-6 mb-2">Tracks not found  </h1>}
                     </div>
 
                 </div>
