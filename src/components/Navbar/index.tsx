@@ -21,7 +21,11 @@ const Navbar = ({ login, logout }: Props,) => {
                     : <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img src={user?.images?.[0]?.url} alt="profile" />
+                                {user.images?.[0] ?
+                                    <img src={user.images?.[0].url} alt="profile" />
+                                    :
+                                    <img src="https://i.pinimg.com/originals/c5/d7/a8/c5d7a8831542103a2a3a91b9df766bdb.jpg" alt="profile" />
+                                }
                             </div>
                         </label>
                         <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">

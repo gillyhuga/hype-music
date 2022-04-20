@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
 import toast, { Toaster } from 'react-hot-toast';
-import { getSearchTrack, createPlaylist, addTracksToPlaylist, getTopTrack} from "../../lib/fetchApi";
+import { getSearchTrack, createPlaylist, addTracksToPlaylist, getTopTrack } from "../../lib/fetchApi";
 import { useSelector, useDispatch } from "react-redux";
 import Track from "../../components/Track";
 import { RootState } from "../../store";
