@@ -8,6 +8,7 @@ import { removeToken } from "./store/auth";
 import { LOGIN_URL } from "./config/config"
 
 import { RootState } from "./store";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,14 +26,17 @@ function App() {
           login={LOGIN_URL}
           logout={logout}
         />
-         <Switch>
-        <Route path="/create-playlist" exact>
-          {isAuthorized ? <CreatePlaylist /> : <Redirect to="/" />}
-        </Route>
-        <Route path="/" exact>
-          <LandingPage />
-        </Route>
-      </Switch>
+        <Switch>
+          <Route path="/create-playlist" exact>
+            {isAuthorized ? <CreatePlaylist /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/" exact>
+            <LandingPage />
+          </Route>
+          <Route path="*" >
+            <NotFoundPage />
+          </Route>
+        </Switch>
       </div>
     </Router >
   );
