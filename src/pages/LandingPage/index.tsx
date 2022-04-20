@@ -1,33 +1,33 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { setToken } from "../../store/auth";
 import { setUser } from "../../store/user";
-import { getUserProfile } from "../../lib/spotify";
+import { getUserProfile } from "../../lib/fetchApi";
+import { useHistory } from "react-router-dom";
 
 function LandingPage() {
     const dispatch = useDispatch();
     const history = useHistory();
-
     useEffect(() => {
-        const token: string | null = new URLSearchParams(window.location.hash).get('#access_token');
+        const params = new URLSearchParams(window.location.hash);
+        const token = params.get('#access_token') || window.localStorage.getItem("token");
+        
         if (token !== null) {
             const setUserProfile = async () => {
                 try {
                     const response = await getUserProfile(token);
                     dispatch(setUser(response));
+                    dispatch(setToken(token));
+                    history.push('/create-playlist');
+                    window.localStorage.setItem("token", token)
+                    localStorage.setItem("isAuthenticated", "true");
                 } catch (e) {
                     alert(e);
                 }
-            };
-            setUserProfile()
-            history.push('/create-playlist');
-            window.localStorage.setItem("token", token)
-            localStorage.setItem("isAuthenticated", "true");
+            };           
+            setUserProfile();
         }
-        dispatch(setToken(token));
-
-    }, [dispatch, history])
+    }, [dispatch, history]);
 
     return (
         <div>

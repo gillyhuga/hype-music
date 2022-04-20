@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
 import toast, { Toaster } from 'react-hot-toast';
-import { getSearchTrack, createPlaylist, addTracksToPlaylist, getTopTrack } from "../../lib/spotify";
+import { getSearchTrack, createPlaylist, addTracksToPlaylist, getTopTrack, getUserProfile } from "../../lib/fetchApi";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "../../components/Card";
 import { RootState } from "../../store";
+import { setUser } from "../../store/user";
 
 function CreatePlaylist() {
     const dispatch = useDispatch();

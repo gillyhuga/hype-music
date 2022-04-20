@@ -8,12 +8,10 @@ import { removeToken } from "./store/auth";
 import { LOGIN_URL } from "./config/config"
 
 import { RootState } from "./store";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state: RootState) => state.auth.isAuthorized);
-  let token = window.localStorage.getItem("token")
 
   const logout = () => {
     dispatch(removeToken());
@@ -27,21 +25,14 @@ function App() {
           login={LOGIN_URL}
           logout={logout}
         />
-        <Switch>
-          <Route path="/">
-            {token ? (
-              <Redirect from='/' to='/create-playlist' />
-            ) : (
-              <LandingPage />
-            )}
-          </Route>
-          <ProtectedRoute exact path="/" >
-            <CreatePlaylist />
-          </ProtectedRoute>
-          <ProtectedRoute exact path="/create-playlist" >
-            <CreatePlaylist />
-          </ProtectedRoute>
-        </Switch>
+         <Switch>
+        <Route path="/create-playlist" exact>
+          {isAuthorized ? <CreatePlaylist /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/" exact>
+          <LandingPage />
+        </Route>
+      </Switch>
       </div>
     </Router >
   );

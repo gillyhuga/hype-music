@@ -3,13 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 interface InitialState {
     token: string;
     isAuthorized: boolean;
-  }
+}
 
-  const initialState: InitialState = {
+const initialState: InitialState = {
     token: '',
     isAuthorized: false,
-  };
-  
+};
 
 export const authentication = createSlice({
     name: "auth",
@@ -19,10 +18,7 @@ export const authentication = createSlice({
             state.token = action.payload;
             state.isAuthorized = true;
         },
-        removeToken: (state) => {
-            state.token = "";
-            state.isAuthorized = false;
-        },
+        removeToken: () => initialState,
     },
 });
 
