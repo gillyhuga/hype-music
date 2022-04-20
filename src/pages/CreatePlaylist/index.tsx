@@ -5,7 +5,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import { getSearchTrack, createPlaylist, addTracksToPlaylist, getTopTrack } from "../../lib/spotify";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "../../components/Card";
-import "./index.css";
 import { RootState } from "../../store";
 
 function CreatePlaylist() {

@@ -5,7 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar"
 import { useSelector, useDispatch } from "react-redux";
 import { removeToken } from "./store/auth";
-import { LOGIN_URL } from "./config/urlApi"
+import { LOGIN_URL } from "./config/config"
 
 import { RootState } from "./store";
 import ProtectedRoute from "./components/ProtectedRoute";

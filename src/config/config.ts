@@ -1,6 +1,6 @@
 export const BASE_URL_API = "https://api.spotify.com/v1";
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const REDIRECT_URI = "http://localhost:3000";
+const REDIRECT_URI = window.location.origin;
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const SCOPE = "playlist-modify-private+user-top-read";
 const RESPONSE_TYPE = "token";

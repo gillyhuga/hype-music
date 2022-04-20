@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, TOP_TRACKS, USERS, PLAYLISTS, TRACKS } from "../config/urlApi"
+import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, TOP_TRACKS, USERS, PLAYLISTS, TRACKS } from "../config/config"
 
 export const getSearchTrack = async (searchKey: string, token: string) => {
     const response = await axios.get(SEARCH, {
