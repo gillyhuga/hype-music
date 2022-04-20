@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import AddPlaylist from "../../components/AddPlaylist";
 import toast, { Toaster } from 'react-hot-toast';
-import { getSearchTrack, createPlaylist, addTracksToPlaylist, getTopTrack, getUserProfile } from "../../lib/fetchApi";
+import { getSearchTrack, createPlaylist, addTracksToPlaylist, getTopTrack} from "../../lib/fetchApi";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "../../components/Card";
+import Track from "../../components/Track";
 import { RootState } from "../../store";
-import { setUser } from "../../store/user";
 
 function CreatePlaylist() {
     const dispatch = useDispatch();
@@ -107,7 +106,7 @@ function CreatePlaylist() {
                             <>
                                 {topTracks.length ?
                                     topTracks.map((track: any) =>
-                                        <Card
+                                        <Track
                                             key={track.id}
                                             title={track.name}
                                             artists={track.artists[0].name}
@@ -123,7 +122,7 @@ function CreatePlaylist() {
                             <>
                                 {tracks.length ?
                                     tracks.map((track: any) =>
-                                        <Card
+                                        <Track
                                             key={track.id}
                                             title={track.name}
                                             artists={track.artists[0].name}

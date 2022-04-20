@@ -8,7 +8,7 @@ type Props = {
     buttonSelect: () => void;
 }
 
-const Card = ({ title, artists, image, buttonSelect, select }: Props) => {
+const Track = ({ title, artists, image, buttonSelect, select }: Props) => {
     const handleSelect = () => {
         buttonSelect();
     };
@@ -37,4 +37,4 @@ const Card = ({ title, artists, image, buttonSelect, select }: Props) => {
     )
 }
 
-export default Card;
+export default Track;
