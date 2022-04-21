@@ -24,12 +24,12 @@ const Track = ({ title, artists, image, buttonSelect, select }: Props) => {
                     </div>
                     <div className="card-actions justify-end">
                         {select ?
-                            <button className="btn gap-2 btn-secondary" onClick={handleSelect}>
+                            <button data-testid="selected-button" className="btn gap-2 btn-secondary" onClick={handleSelect}>
                                 <CheckCircleIcon className="h-6 w-6" />
                                 Selected
                             </button>
                             :
-                            <button className="btn btn-primary" onClick={handleSelect}>Select</button>}
+                            <button data-testid="select-button" className="btn btn-primary" onClick={handleSelect}>Select</button>}
                     </div>
                 </div>
             </div>

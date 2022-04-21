@@ -11,13 +11,13 @@ const Navbar = ({ login, logout }: Props,) => {
     let { token } = useSelector((state: RootState) => state.auth);
     const { user } = useSelector((state: RootState) => state.users);
     return (
-        <div className="navbar bg-base-100">
+        <div data-testid="navbar" className="navbar bg-base-100">
             <div className="flex-1">
                 <a href="/" className="btn btn-ghost normal-case text-xl">Hype Music</a>
             </div>
             <div className="flex-none gap-2">
                 {!token ?
-                    <a href={login} className="btn btn-active btn-primary">Login to Spotify</a>
+                    <a data-testid="button-login" href={login} className="btn btn-active btn-primary">Login to Spotify</a>
                     : <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">

@@ -11,8 +11,8 @@ const SearchBar = ({ onSubmit, onChange }: Props) => {
         <form onSubmit={onSubmit}>
             <div className="form-control">
                 <div className="input-group">
-                    <input type="text" required={true} placeholder="Search for artist or songs" className="input input-bordered" onChange={onChange} />
-                    <button className="btn btn-primary btn-square">
+                    <input data-testid="search-input" type="text" required={true} placeholder="Search for artist or songs" className="input input-bordered" onChange={onChange} />
+                    <button data-testid="search-button" className="btn btn-primary btn-square">
                         <SearchIcon className="h-6 w-6 text-white" />
                     </button>
                 </div>
