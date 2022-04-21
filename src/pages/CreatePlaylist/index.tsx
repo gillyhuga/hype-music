@@ -6,41 +6,38 @@ import { getSearchTrack, createPlaylist, addTracksToPlaylist, getTopTrack } from
 import { useSelector, useDispatch } from "react-redux";
 import Track from "../../components/Track";
 import { RootState } from "../../store";
+import { setSelectedTrack, setTrack } from "../../store/track";
+import { setQuerySearch } from "../../store/search";
+import { setPlaylistForm } from "../../store/playlist";
 
 function CreatePlaylist() {
     const dispatch = useDispatch();
-    const { user } = useSelector((state: RootState) => state.user);
     let { token } = useSelector((state: RootState) => state.auth);
+    const { user } = useSelector((state: RootState) => state.users);
+    const { track, selectedTrack } = useSelector((state: RootState) => state.tracks);
+    const { querySearch, isSearch } = useSelector((state: RootState) => state.search);
+    const { playlistForm } = useSelector((state: RootState) => state.playlist);
     const [searchKey, setSearchKey] = useState("")
-    const [querySearch, setQuerySearch] = useState("")
-    const [tracks, setTracks] = useState([])
-    const [selectedTracks, setSelectedTracks] = useState<string[]>([]);
-    const [inSearch, setinSearch] = useState(false);
-    const [playlistForm, setPlaylistForm] = useState({
-        title: '',
-        description: '',
-    })
 
     useEffect(() => {
         getTopTrack(token).then((data) => {
-            setTracks(data)
+            dispatch(setTrack(data))
         })
     }, [dispatch, token])
 
     const handleFormChange = (e: any) => {
-        setPlaylistForm({
+        dispatch(setPlaylistForm({
             ...playlistForm,
             [e.target.name]: e.target.value
-        })
+        }))
     }
 
     const handleSearch = async (e: any) => {
         e.preventDefault();
         getSearchTrack(searchKey, token).then((data) => {
-            setTracks(data.tracks.items)
+            dispatch(setTrack(data.tracks.items))
         })
-        setQuerySearch(searchKey)
-        setinSearch(true)
+        dispatch(setQuerySearch(searchKey))
     }
 
     const handleCreatePlaylist = async (e: any) => {
@@ -49,13 +46,13 @@ function CreatePlaylist() {
             const userId = user.id
             const playlistId = await createPlaylist(userId, token, playlistForm.title, playlistForm.description)
             if (playlistId) {
-                const response = await addTracksToPlaylist(playlistId, token, selectedTracks)
+                const response = await addTracksToPlaylist(playlistId, token, selectedTrack)
                 if (response) {
-                    setPlaylistForm({
+                    dispatch(setPlaylistForm({
                         title: '',
                         description: '',
-                    })
-                    setSelectedTracks([])
+                    }))
+                    dispatch(setSelectedTrack([]))
                     toast.success('Playlist Created!')
                 }
             }
@@ -66,10 +63,10 @@ function CreatePlaylist() {
 
     const toggleSelect = (track: any) => {
         const uri = track.uri;
-        if (selectedTracks.includes(uri)) {
-            setSelectedTracks(selectedTracks.filter((item) => item !== uri));
+        if (selectedTrack.includes(uri)) {
+            dispatch(setSelectedTrack(selectedTrack.filter((item: any) => item !== uri)));
         } else {
-            setSelectedTracks([...selectedTracks, uri]);
+            dispatch(setSelectedTrack([...selectedTrack, uri]));
         }
     }
 
@@ -88,7 +85,7 @@ function CreatePlaylist() {
                             onSubmit={handleSearch}
                             onChange={e => setSearchKey(e.target.value)}
                         />
-                        {selectedTracks.length !== 0 && (
+                        {selectedTrack.length !== 0 && (
                             <AddPlaylist
                                 title={handleFormChange}
                                 description={handleFormChange}
@@ -96,19 +93,19 @@ function CreatePlaylist() {
                             />
                         )}
                     </div>
-                    {!inSearch ?
+                    {!isSearch ?
                         <h1 className="text-2xl font-medium pt-6 mb-2">Top songs for you</h1>
                         : <h1 className=" text-2xl font-medium pt-6 mb-2">Result for "{querySearch}"</h1>}
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 py-5">
-                        {tracks.length ?
-                            tracks.map((track: any) =>
+                        {track.length ?
+                            track.map((track: any) =>
                                 <Track
                                     key={track.id}
                                     title={track.name}
                                     artists={track.artists[0].name}
                                     image={track.album.images[0].url}
                                     buttonSelect={() => toggleSelect(track)}
-                                    select={selectedTracks.includes(track.uri)}
+                                    select={selectedTrack.includes(track.uri)}
                                 />
                             )
                             :

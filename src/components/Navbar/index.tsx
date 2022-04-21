@@ -9,7 +9,7 @@ type Props = {
 
 const Navbar = ({ login, logout }: Props,) => {
     let { token } = useSelector((state: RootState) => state.auth);
-    const { user } = useSelector((state: RootState) => state.user);
+    const { user } = useSelector((state: RootState) => state.users);
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
