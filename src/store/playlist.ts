@@ -5,6 +5,7 @@ interface InitialState {
         title: string,
         description: string,
     };
+    playlist: any
 }
 
 const initialState: InitialState = {
@@ -12,7 +13,7 @@ const initialState: InitialState = {
         title: '',
         description: '',
     },
-
+    playlist: {}
 };
 
 export const playlist = createSlice({
@@ -22,8 +23,11 @@ export const playlist = createSlice({
         setPlaylistForm: (state, action) => {
             state.playlistForm = action.payload;
         },
+        setPlaylist: (state, action) => {
+            state.playlist = action.payload;
+        },
     },
 });
 
-export const { setPlaylistForm } = playlist.actions;
+export const { setPlaylistForm, setPlaylist } = playlist.actions;
 export default playlist.reducer;

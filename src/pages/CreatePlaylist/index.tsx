@@ -72,46 +72,43 @@ function CreatePlaylist() {
 
     return (
         <div>
-            <div>
-                <div className="px-6">
-                    <h1 className="text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
-                    <p className="mb-10">Choose your favorite song and create your playlist </p>
-                    <Toaster
-                        position="bottom-center"
-                        reverseOrder={false}
+            <div className="px-6">
+                <h1 className="text-2xl font-medium pt-6 mb-2">Hello, {user.display_name}</h1>
+                <p className="mb-10">Choose your favorite song and create your playlist </p>
+                <Toaster
+                    position="bottom-center"
+                    reverseOrder={false}
+                />
+                <div className="flex space-x-4">
+                    <SearchBar
+                        onSubmit={handleSearch}
+                        onChange={e => setSearchKey(e.target.value)}
                     />
-                    <div className="flex space-x-4">
-                        <SearchBar
-                            onSubmit={handleSearch}
-                            onChange={e => setSearchKey(e.target.value)}
+                    {selectedTrack.length !== 0 && (
+                        <AddPlaylist
+                            title={handleFormChange}
+                            description={handleFormChange}
+                            submit={handleCreatePlaylist}
                         />
-                        {selectedTrack.length !== 0 && (
-                            <AddPlaylist
-                                title={handleFormChange}
-                                description={handleFormChange}
-                                submit={handleCreatePlaylist}
+                    )}
+                </div>
+                {!isSearch ?
+                    <h1 className="text-2xl font-medium pt-6 mb-2">Top songs for you</h1>
+                    : <h1 className=" text-2xl font-medium pt-6 mb-2">Result for "{querySearch}"</h1>}
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 py-5">
+                    {track.length ?
+                        track.map((track: any) =>
+                            <Track
+                                key={track.id}
+                                title={track.name}
+                                artists={track.artists[0].name}
+                                image={track.album.images[0].url}
+                                buttonSelect={() => toggleSelect(track)}
+                                select={selectedTrack.includes(track.uri)}
                             />
-                        )}
-                    </div>
-                    {!isSearch ?
-                        <h1 className="text-2xl font-medium pt-6 mb-2">Top songs for you</h1>
-                        : <h1 className=" text-2xl font-medium pt-6 mb-2">Result for "{querySearch}"</h1>}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 py-5">
-                        {track.length ?
-                            track.map((track: any) =>
-                                <Track
-                                    key={track.id}
-                                    title={track.name}
-                                    artists={track.artists[0].name}
-                                    image={track.album.images[0].url}
-                                    buttonSelect={() => toggleSelect(track)}
-                                    select={selectedTrack.includes(track.uri)}
-                                />
-                            )
-                            :
-                            <h1 className=" text-2xl font-medium pt-6 mb-2">Tracks not found</h1>}
-                    </div>
-
+                        )
+                        :
+                        <h1 className=" text-2xl font-medium pt-6 mb-2">Tracks not found</h1>}
                 </div>
             </div>
         </div>

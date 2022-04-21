@@ -1,3 +1,4 @@
+import { PlusCircleIcon } from "@heroicons/react/outline";
 import React from "react";
 
 type Props = {
@@ -9,7 +10,8 @@ type Props = {
 const AddPlaylist = ({ title, description, submit }: Props) => {
     return (
         <div>
-            <label htmlFor="my-modal" className="btn btn-primary modal-button">Create Playlist</label>
+            <label htmlFor="my-modal" className="btn btn-primary modal-button hidden md:inline-flex ">Create Playlist</label>
+            <label htmlFor="my-modal" className="btn btn-primary modal-button md:hidden"><PlusCircleIcon className="h-6 w-6"/></label>
             <input type="checkbox" id="my-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box">

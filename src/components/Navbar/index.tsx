@@ -1,5 +1,6 @@
 import React, { MouseEventHandler } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { RootState } from "../../store";
 
 type Props = {
@@ -29,6 +30,8 @@ const Navbar = ({ login, logout }: Props,) => {
                             </div>
                         </label>
                         <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                            <li><Link to="/profile">Profile</Link></li>
+                            <li><Link to="/create-playlist">Create Playlist</Link></li>
                             <li><button onClick={logout}>Logout</button></li>
                         </ul>
                     </div>

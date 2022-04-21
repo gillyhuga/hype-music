@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, TOP_TRACKS, USERS, PLAYLISTS, TRACKS } from "../config/config"
+import { BASE_URL_API, SEARCH, CURRENT_USER_PROFILE, TOP_TRACKS, USERS, PLAYLISTS, TRACKS, CURRENT_USER_PLAYLIST } from "../config/config"
 
 export const getSearchTrack = async (searchKey: string, token: string) => {
     const response = await axios.get(SEARCH, {
@@ -56,6 +56,15 @@ export const getTopTrack = async (token: string) => {
         },
         params: {
             limit: 18,
+        }
+    })
+    return response?.data?.items
+}
+
+export const getPlaylist = async (token: string) => {
+    const response = await axios.get(CURRENT_USER_PLAYLIST, {
+        headers: {
+            Authorization: `Bearer ${token}`
         }
     })
     return response?.data?.items

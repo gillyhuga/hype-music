@@ -9,6 +9,7 @@ import { LOGIN_URL } from "./config/config"
 
 import { RootState } from "./store";
 import NotFoundPage from "./pages/NotFoundPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function App() {
         <Switch>
           <Route path="/create-playlist" exact>
             {isAuthorized ? <CreatePlaylist /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/profile" exact>
+            {isAuthorized ? <ProfilePage /> : <Redirect to="/" />}
           </Route>
           <Route path="/" exact>
             <LandingPage />
