@@ -15,11 +15,11 @@ const Playlist = ({ title, totalTracks, image, href }: Props) => {
                 <img className=" h-40 w-full object-cover" src={image} alt="Album" />
                 <div className="card-body truncate">
                     <div className="m-2  truncate">
-                        <h2 className="card-title">{title}</h2>
+                        <h2 className="card-title text-sm  lg:text-xl">{title}</h2>
                         <p>Total Tracks : {totalTracks}</p>
                     </div>
                     <div className="card-actions justify-end">
-                        <a className="btn btn-primary" target="_blank" href={href} rel="noreferrer">Open</a>
+                        <a className="btn btn-sm md:btn-md btn-primary" target="_blank" href={href} rel="noreferrer">Open</a>
                     </div>
                 </div>
             </div>
