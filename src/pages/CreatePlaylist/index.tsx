@@ -9,6 +9,7 @@ import { RootState } from "../../store";
 import { setSelectedTrack, setTrack } from "../../store/track";
 import { setQuerySearch } from "../../store/search";
 import { setPlaylistForm } from "../../store/playlist";
+import { convertDuration } from "../../utils/convertDuration";
 
 function CreatePlaylist() {
     const dispatch = useDispatch();
@@ -103,6 +104,7 @@ function CreatePlaylist() {
                                 title={track.name}
                                 artists={track.artists[0].name}
                                 image={track.album.images[0].url}
+                                duration={convertDuration(track.duration_ms)}
                                 buttonSelect={() => toggleSelect(track)}
                                 select={selectedTrack.includes(track.uri)}
                             />
