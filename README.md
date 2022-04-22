@@ -25,11 +25,11 @@
 ## About The Project
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/37680589/164709852-426b978d-b1ea-4f3c-bafa-f476605da2a7.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164710398-243f2abf-3921-4b5b-a333-b9c2ff6e86ce.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164710408-ab0f5491-f218-4ec8-898e-7bd209bf83e8.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164710410-cfc16fb0-1ae9-4faf-9a2a-24c119de66dd.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164710416-240e70fb-6990-4d0d-80ae-e196b13a7ee6.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164736332-237f3b33-a7b2-490e-b242-08e388e38aa7.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164736341-2f3ef51a-41dc-46ec-8af1-f23960a5b729.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164737130-86dcf102-94d2-4f01-b569-ab4e06421437.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164736363-ddd00a8b-b13c-42f4-aea3-a657dafceaec.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164736371-39ab1bbd-afe1-45f4-b86b-0f7d8c0680a0.png" width="175px" height="auto"></img>
 </p>
 
 Hype Music is a platform that connects with Spotify, so it allows you to view all your playlists in your Spotify account and you can also create new playlists by searching for the tracks you want and adding some tracks to your new playlist!
