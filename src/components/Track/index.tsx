@@ -21,8 +21,8 @@ const Track = ({ title, artists, image,duration, buttonSelect, select }: Props) 
                 <div className="card-body truncate">
                     <div className="m-2 lg:mb-6 truncate">
                         <span className="text-sm lg:text-xl font-bold">{title}</span>
-                        <p className="font-semibold">{artists}</p>
-                        <p className="font-thin">Duration : {duration}</p>
+                        <p className="font-normal  sm:font-semibold">{artists}</p>
+                        <p className="text-primary-focus">{duration}</p>
                     </div>
                     <div className="card-actions justify-center sm:justify-end">
                         {select ?
