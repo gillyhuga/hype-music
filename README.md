@@ -25,28 +25,29 @@
 ## About The Project
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/37680589/164709852-426b978d-b1ea-4f3c-bafa-f476605da2a7.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164710398-243f2abf-3921-4b5b-a333-b9c2ff6e86ce.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164710408-ab0f5491-f218-4ec8-898e-7bd209bf83e8.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164710410-cfc16fb0-1ae9-4faf-9a2a-24c119de66dd.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164710416-240e70fb-6990-4d0d-80ae-e196b13a7ee6.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164736332-237f3b33-a7b2-490e-b242-08e388e38aa7.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164736341-2f3ef51a-41dc-46ec-8af1-f23960a5b729.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164737130-86dcf102-94d2-4f01-b569-ab4e06421437.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164736363-ddd00a8b-b13c-42f4-aea3-a657dafceaec.png" width="175px" height="auto"></img>
+<img src="https://user-images.githubusercontent.com/37680589/164736371-39ab1bbd-afe1-45f4-b86b-0f7d8c0680a0.png" width="175px" height="auto"></img>
 </p>
 
 Hype Music is a platform that connects with Spotify, so it allows you to view all your playlists in your Spotify account and you can also create new playlists by searching for the tracks you want and adding some tracks to your new playlist!
 
 Hype Music consists of 3 pages:
 
-- Login, where you first land before you connect your Spotify account to Spotify
-- Home, where you can see the songs you listen to frequently and search for songs by keyword, on this page you can also create playlists based on the songs you choose.
+- Landing Page, where you first landing before you connect your Spotify account to Spotify
+- Home, where you can see the songs you listen to frequently and search for songs by title or artist, on this page you can also create playlists based on the songs you choose.
 - Profile, where you can see your profile such as your profile photo and your name, and you can also see the playlists you have.
 
 ### Feature
 
 - Connect with Spotify account
-- Displays your frequently played songs
-- Search for favorite songs by song title or artist
-- Display your name and your profile picture
-- Display playlists that you have created or are following
+- User top tracks
+- Search tracks by title or artist
+- Create playlist
+- User profile picture and display name 
+- User playlists 
 
 ### Built With
 
