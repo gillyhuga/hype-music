@@ -14,7 +14,7 @@ const Navbar = ({ login, logout }: Props,) => {
     return (
         <div data-testid="navbar" className="navbar bg-base-100">
             <div className="flex-1">
-                <a href="/" className="btn btn-ghost normal-case text-xl">Hype Music</a>
+                <a href="#" className="btn btn-ghost normal-case text-xl">Hype Music</a>
             </div>
             <div className="flex-none gap-2">
                 {!token ?
