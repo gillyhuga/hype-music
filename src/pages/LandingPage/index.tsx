@@ -5,6 +5,7 @@ import { setUser } from "../../store/user";
 import { getUserProfile } from "../../lib/fetchApi";
 import { useHistory } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
+import ToastInfo from "../../components/ToastInfo";
 
 function LandingPage() {
     const dispatch = useDispatch();
@@ -29,7 +30,16 @@ function LandingPage() {
             };
             setUserProfile();
         }
+
+        toast.custom((t) => (
+            <ToastInfo
+                onToast={t.visible}
+                toastId={t.id} />
+        ))
+
     }, [dispatch, history]);
+
+
 
     return (
         <div>
