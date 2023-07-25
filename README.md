@@ -11,14 +11,14 @@
   <p align="center">
     Create a playlist of your favorite song choices on Spotify!
     <br />
-    <a href="https://github.com/gillyhuga/generasi-gigih-homework"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/gillyhuga/hype-music"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://hypemusic.vercel.app/">View Demo</a>
+    <a href="https://hypemusic.gillyhuga.com/">View Demo</a>
     ·
-    <a href="https://github.com/gillyhuga/generasi-gigih-homework/issues">Report Bug</a>
+    <a href="https://github.com/gillyhuga/hype-music/issues">Report Bug</a>
     ·
-    <a href="https://github.com/gillyhuga/generasi-gigih-homework/issues">Request Feature</a>
+    <a href="https://github.com/gillyhuga/hype-music/issues">Request Feature</a>
   </p>
 </p>
 
@@ -71,11 +71,11 @@ Hype Music consists of 3 pages:
 
 - Clone repository
   ```
-     https://github.com/gillyhuga/generasi-gigih-homework.git
+     https://github.com/gillyhuga/hype-music.git
   ```
 - Go to the project directory
   ```
-     cd generasi-gigih-homework
+     cd hype-music
   ```
 - Set up the environment variables to your .env file
 
@@ -95,7 +95,7 @@ Hype Music consists of 3 pages:
 
 ## License
 
-Licensed under [MIT License](https://github.com/gillyhuga/generasi-gigih-homework/blob/main/LICENSE)
+Licensed under [MIT License](https://github.com/gillyhuga/hype-music/blob/main/LICENSE)
 
 ## Special Thanks To
 
