@@ -1,6 +1,5 @@
 import React from "react";
-import { SearchIcon } from '@heroicons/react/solid'
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 type Props = {
     onToast: any,
@@ -18,7 +17,7 @@ const ToastInfo = ({ onToast, toastId }: Props) => {
                     <div className="flex-shrink-0 pt-0.5">
                         <img
                             className="h-10 w-10 rounded-full"
-                            src="https://media.licdn.com/dms/image/D5603AQGvzfeUaYo3nA/profile-displayphoto-shrink_800_800/0/1681735255444?e=1689811200&v=beta&t=IQQm2RLntGT-QVhm0HM2vbb7v--I5acbdmEAQNYaxZo"
+                            src="https://avatars.githubusercontent.com/u/37680589"
                             alt=""
                         />
                     </div>

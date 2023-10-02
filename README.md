@@ -24,13 +24,9 @@
 
 ## About The Project
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/37680589/164736332-237f3b33-a7b2-490e-b242-08e388e38aa7.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164736341-2f3ef51a-41dc-46ec-8af1-f23960a5b729.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164737130-86dcf102-94d2-4f01-b569-ab4e06421437.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164736363-ddd00a8b-b13c-42f4-aea3-a657dafceaec.png" width="175px" height="auto"></img>
-<img src="https://user-images.githubusercontent.com/37680589/164736371-39ab1bbd-afe1-45f4-b86b-0f7d8c0680a0.png" width="175px" height="auto"></img>
-</p>
+<div align="center">
+  <img src="https://res.cloudinary.com/gillyhuga/image/upload/v1688210106/HypeMusic.jpg"><img>
+</div>
 
 Hype Music is a platform that connects with Spotify, so it allows you to view all your playlists in your Spotify account and you can also create new playlists by searching for the tracks you want and adding some tracks to your new playlist!
 
@@ -76,6 +72,10 @@ Hype Music consists of 3 pages:
 - Go to the project directory
   ```
      cd hype-music
+  ```
+- Create environment variables
+  ```
+     cp .env.example .env.local
   ```
 - Set up the environment variables to your .env file
 
